@@ -18,6 +18,7 @@ namespace APICafeteria.Models
 
         public virtual DbSet<Cheque> Cheques { get; set; } = null!;
         public virtual DbSet<Pago> Pagos { get; set; } = null!;
+        public virtual DbSet<Pago1> Pagos1 { get; set; } = null!;
         public virtual DbSet<Proveedore> Proveedores { get; set; } = null!;
         public virtual DbSet<SolicitudRegistroCheque> SolicitudRegistroCheques { get; set; } = null!;
 
@@ -45,6 +46,32 @@ namespace APICafeteria.Models
 
             modelBuilder.Entity<Pago>(entity =>
             {
+                entity.ToTable("Pago");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CuentaContable)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("cuentaContable");
+
+                entity.Property(e => e.Fecha)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("fecha");
+
+                entity.Property(e => e.Monto).HasColumnName("monto");
+
+                entity.Property(e => e.NombreProveedor)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("nombreProveedor");
+            });
+
+            modelBuilder.Entity<Pago1>(entity =>
+            {
+                entity.ToTable("Pagos");
+
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(250)
                     .IsUnicode(false)

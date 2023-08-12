@@ -21,7 +21,7 @@ namespace APICafeteria.Controllers
             }
 
         }
-
+        
 
         [HttpPost]
         [Route("nuevo")]
@@ -46,6 +46,29 @@ namespace APICafeteria.Controllers
 
             db.SolicitudRegistroCheques.Add(entity);
             await db.SaveChangesAsync();
+
+
+        }
+
+        [HttpPost]
+        [Route("update")]
+        public async Task UpdateSolic(int idSolic, int monto, string estado)
+        {
+
+            using (var db = new Models.Cheques_ProveedoresContext())
+            {
+                var addprov = db.SolicitudRegistroCheques.Where(e => e.Id== idSolic).FirstOrDefault();
+
+#pragma warning disable CS8602 // Desreferencia de una referencia posiblemente NULL.
+
+                addprov.Id = idSolic;
+                addprov.Monto = monto;
+                addprov.Estado = estado;
+#pragma warning restore CS8602 // Desreferencia de una referencia posiblemente NULL.
+
+                db.SaveChanges();
+            }
+
 
 
         }
